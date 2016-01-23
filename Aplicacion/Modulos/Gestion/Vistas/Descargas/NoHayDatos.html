@@ -1,0 +1,28 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+				<div class="row-fluid">
+					<div class="span6">
+						<div class="box">
+							<div class="box-title">
+								<h3>
+									<i class="icon-link"></i>
+									No Hay Datos
+								</h3>
+							</div>
+							<div class="box-content">
+								<blockquote>
+									<p>
+										Lo Sentimos, La Fecha Ingresada no tiene datos.
+									</p>
+								</blockquote>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+	{% endblock %}
+		
+	{% block Script %}
+		{{Script|raw}}
+	{% endblock %}

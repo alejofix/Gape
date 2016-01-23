@@ -1,0 +1,55 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+		
+		<style>
+			.error {
+				font-family: verdana;
+				font-size: 10px;
+				font-weight: bold;
+				color: red;
+			}
+		</style>
+		
+		<div class="span5">
+			<div class="box box-bordered">
+				<div class="box-title">
+					<h3><i class="icon-th-list"></i>Seguimientos.xls</h3>
+				</div>
+				<div class="box-content nopadding">
+					<form action="{{NeuralRutasApp.RutaURL}}Descargas/ProcesarSeguimientos/{{Fecha}}" method="POST" class="form-horizontal form-bordered" name="Form" id="Form">
+						<div class="control-group">
+							<label for="textfield" class="control-label">Seleccionar Último Día</label>
+							<div class="controls">
+								<input type="month" name="Fecha" id="Fecha" class="input-xlarge" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="textfield" class="control-label">Estados</label>
+							<div class="controls">
+								<label class="radio">
+									<input type="radio" name="Estado" value="TODOS" checked="checked" /> Todos
+								</label>
+								<label class="radio">
+									<input type="radio" name="Estado" value="ACTIVO" /> Pendientes
+								</label>
+								<label class="radio">
+									<input type="radio" name="Estado" value="INACTIVO" /> Finalizados
+								</label>
+							</div>
+						</div>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary">Descargar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			
+			<div id="CargarRespuesta"></div>
+		</div>
+			
+	{% endblock %}
+		
+	{% block Script %}
+		{{Script|raw}}
+	{% endblock %}

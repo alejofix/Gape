@@ -1,0 +1,38 @@
+
+								<ul class="minitiles">
+									<li class='teal'><a href="{{NeuralRutasApp.RutaURL}}BaseGestion" title="Agregar Gestión"><i class="icon-inbox"></i></a></li>
+								</ul>
+
+								<ul class="stats">
+									<li class='lime'>
+										<i class="icon-globe"></i>
+										<div class="details">
+											<span class="big">{{ GestionesUsuario >= 1 ? GestionesUsuario : "Ninguno" }}</span>
+											<span>Gestiones Usuario</span>
+										</div>
+									</li>
+									
+									<li class='blue'>
+										<i class="icon-globe"></i>
+										<div class="details">
+											<span class="big">{{ GestionesGlobales >= 1 ? GestionesGlobales : "Ninguno"}}</span>
+											<span>Total de Gestiones</span>
+										</div>
+									</li>
+									
+									<li class='red'>
+										<i class="icon-eye-open"></i>
+										<div class="details">
+											<span class="big">{{ Seguimientos >= 1 ? Seguimientos : "Ninguno" }}</span>
+											<span>Seguimientos</span>
+										</div>
+									</li>
+									
+									<li class='orange'>
+										<i class="icon-calendar"></i>
+										<div class="details">
+											<span class="big">{{InfoSession.Fecha.mon}} {{InfoSession.Fecha.mday}}, {{InfoSession.Fecha.year}}</span>
+											<span>{{InfoSession.Fecha.wday}}, {{InfoSession.Fecha.hours}}:{{InfoSession.Fecha.minutes}}:{{InfoSession.Fecha.seconds}}</span>
+										</div>
+									</li>
+								</ul>

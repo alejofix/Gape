@@ -1,0 +1,106 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+		{% if Consulta|length == 1 %}
+				<style>
+					.error {
+						font-family: verdana;
+						font-size: 10px;
+						font-weight: bold;
+						color: red;
+					}
+				</style>
+		
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="box">
+							<div class="box-title">
+								<h3><i class="icon-edit"></i> <strong>Editar Usuario:</strong> {{Consulta.0.Nombres}} {{Consulta.0.Apellidos}}</h3>
+							</div>
+							<div class="box-content">
+								<form action="#" method="POST" class="form-horizontal" name="Form" id="Form">
+									
+									<div class="control-group">
+										<label for="textfield" class="control-label"><strong>Usuario</strong></label>
+										<div class="controls">
+											<input type="text" name="Usuario" id="Usuario" class="input-xlarge" value="{{Consulta.0.Usuario}}" />
+										</div>
+									</div>
+									
+									<div class="control-group">
+										<label for="textfield" class="control-label"><strong>Nombres</strong></label>
+										<div class="controls">
+											<input type="text" name="Nombres" id="Nombres" class="input-xlarge" value="{{Consulta.0.Nombres}}" />
+										</div>
+									</div>
+									
+									<div class="control-group">
+										<label for="textfield" class="control-label"><strong>Apellidos</strong></label>
+										<div class="controls">
+											<input type="text" name="Apellidos" id="Apellidos" class="input-xlarge" value="{{Consulta.0.Apellidos}}" />
+										</div>
+									</div>
+									
+									<div class="control-group">
+										<label for="textfield" class="control-label"><strong>Cédula</strong></label>
+										<div class="controls">
+											<input type="text" name="Cedula" id="Cedula" class="input-xlarge" value="{{Consulta.0.Cedula}}" />
+										</div>
+									</div>
+									
+									<div class="control-group">
+										<label for="select" class="control-label"><strong>Permiso</strong></label>
+										<div class="controls">
+											<select name="Permisos" id="Permisos" class="input-large">
+												<option value="{{Consulta.0.Permisos}}">{{NombrePermiso(ListadoPermisos, Consulta.0.Permisos)}}</option>
+												<option value=""></option>
+												<option value="">Escoja Una Opción</option>
+												{% for Datos in ListadoPermisos %}
+													<option value="{{Datos.Id}}">{{Datos.Nombre}}</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+									
+									<div class="control-group">
+										<label for="textfield" class="control-label"><strong>Cargo</strong></label>
+										<div class="controls">
+											<input type="text" name="Cargo" id="Cargo" class="input-xlarge" value="{{Consulta.0.Cargo}}" />
+										</div>
+									</div>
+									
+									<div class="form-actions">
+										<input type="hidden" name="Data" value="{{Consulta.0.Id|Encriptar}}" />
+										<button type="submit" class="btn btn-primary">Guardar</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+		{% else %}
+			<div class="span6">
+				<div class="box">
+					<div class="box-title">
+						<h3>
+							<i class="icon-link"></i>
+							No se Encuentra El Usuario Indicado
+						</h3>
+					</div>
+					<div class="box-content">
+						<blockquote>
+							<p>
+								Por favor realice la validación del usuario ya que no se encuentra en la base de datos.
+							</p>
+							<small>Editar Usuario</small>
+						</blockquote>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+				
+	{% endblock %}
+		
+	{% block Script %}
+		{{Script|raw}}
+	{% endblock %}

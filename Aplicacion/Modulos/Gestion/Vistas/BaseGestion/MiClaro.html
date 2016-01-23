@@ -1,0 +1,65 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+		<style>
+			.error {
+				font-family: verdana;
+				color: red;
+				font-size: 10px;
+				font-weight: bold;
+			}
+		</style>
+					<div class="span6">
+						<div class="box box-bordered box-color">
+							<div class="box-title">
+								<h3><i class="icon-th-list"></i> Mi Claro</h3>
+							</div>
+							<div class="box-content nopadding">
+								<form action="#" method="POST" class="form-horizontal form-bordered" id="Form_MiClaro">
+									<div class="control-group">
+										<label for="textfield" class="control-label">Cuenta del Suscriptor</label>
+										<div class="controls">
+											<input name="Cuenta" id="Cuenta" placeholder="Cuenta" class="input-xlarge" type="text">
+										</div>
+									</div>
+									<div class="control-group">
+										<label for="textfield" class="control-label">Sintoma:</label>
+										<div class="controls">
+											<select name="Sintoma" id="Sintoma" class="input-large">
+												<option value="">Escoja Una Opción</option>
+												{% for Sintomas in Sintomas %}
+													<option value="{{Sintomas.Sintoma|raw}}">{{Sintomas.Sintoma|raw}}</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+									<div class="control-group">
+										<label for="textarea" class="control-label">Observaciones</label>
+										<div class="controls">
+											<textarea name="Observaciones" id="Observaciones" rows="5" class="input-block-level"></textarea>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Seguimiento<small>Seleccionar para dejar en Seguimiento</small></label>
+										<div class="controls">
+											<label class="checkbox">
+												<input name="Seguimiento" type="checkbox" value="SEGUIMIENTO"> Seguimiento
+											</label>
+										</div>
+									</div>
+									
+									<div class="form-actions">
+										<input type="hidden" name="Usuario" value="{{InfoSession.Usuario|Codificacion}}" />
+										<input type="hidden" name="Asesor" value="{{Asesor|Codificacion}}" />
+										<button type="submit" class="btn btn-primary">Guardar</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+			
+	{% endblock %}
+		
+	{% block Script %}
+		{{BaseScript|raw}}
+	{% endblock %}

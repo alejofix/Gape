@@ -1,0 +1,112 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+		<div class="span10">
+			<div class="box box-color box-bordered">
+				<div class="box-title">
+					<h3>
+						<i class="icon-table"></i>
+						Listado de Asesores
+					</h3>
+				</div>
+				<div class="box-content nopadding">
+					<table class="table table-nomargin" style="font-family: verdana; font-size: 10px;">
+						<thead>
+							<tr>
+								<th>Usuario RR</th>
+								<th>Nombres</th>
+								<th>Apellidos</th>
+								<th>Cedula</th>
+								<th>Estado</th>
+								<th>Gestión</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% if Consulta|length>=1 %}
+								{% for Datos in Consulta %}
+									<tr id="{{loop.index}}" data="{{Datos.Estado}}" class="Validacion">
+										<td>{{Datos.Usuario}}</td>
+										<td>{{Datos.Nombres}}</td>
+										<td>{{Datos.Apellidos}}</td>
+										<td>{{Datos.Cedula}}</td>
+										<td id="RespuestaB{{loop.index}}">{{Datos.Estado}}</td>
+										<td id="B{{loop.index}}" data="{{Datos.Estado}}" raw="{{Datos.Id}}" class="Boton"></td>
+										
+									</tr>
+								{% endfor %}
+							{% else %}
+								<tr>
+									<td colspan="6">
+										<h5>No Hay Asesores en la Base de Datos</h5>
+									</td>
+								</tr>
+							{% endif %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	{% endblock %}
+		
+	{% block Script %}
+		<script>
+			$(document).ready(function() {
+				$(".Validacion").before(function() {
+					var IdTr = $(this).attr('id');
+					var DataTr = $(this).attr('data');
+					if(DataTr == 'INACTIVO') {
+						$("#" + IdTr).css({background: "#F79F81", color: "black"});
+					}
+				});
+			});
+		</script>
+		
+		<script src="{{NeuralRutasApp.RutaPublico}}extras/boton_iphone/jquery.iphone-switch.js" type="text/javascript"></script>
+		
+		<script>
+			$(document).ready(function() {
+				$(".Boton").before(function() {
+					var Id = $(this).attr('id');
+					var Data = $(this).attr('data');
+					var Raw = $(this).attr('raw');
+					var IdTr = $(this).parent().attr('id');
+					if(Data == 'ACTIVO') {
+						var Encendido = "on";
+					}
+					else {
+						var Encendido = "off";
+					}
+					
+					$("#" + Id).iphoneSwitch(Encendido, 
+						function() {
+							$.ajax({
+								type: "POST",
+								url: "{{NeuralRutasApp.RutaURL}}Ajax_AdminUsuarios/ActivacionUsuario/{{Fecha}}",
+								dataType: "html", 
+								data: { Asesor : Raw, Estado : Data},
+								success: function(response) {
+									$("#Respuesta" + Id).html(response);
+									$("#" + IdTr).css({background: "#FFFFFF", color: "black"});
+								}
+							});
+						},
+						function() {
+							$.ajax({
+								type: "POST",
+								url: "{{NeuralRutasApp.RutaURL}}Ajax_AdminUsuarios/DesActivacionUsuario/{{Fecha}}",
+								dataType: "html", 
+								data: { Asesor : Raw, Estado : Data},
+								success: function(response) {
+									$("#Respuesta" + Id).html(response);
+									$("#" + IdTr).css({background: "#F79F81", color: "black"});
+								}
+							});
+						},
+						{
+							switch_on_container_path: '{{NeuralRutasApp.RutaPublico}}extras/boton_iphone/iphone_switch_container_off.png'
+						}
+					);
+				});
+			});
+		</script>
+	{% endblock %}

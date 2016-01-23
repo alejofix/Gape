@@ -1,0 +1,37 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+	
+		<div class="span10">
+			<ul class="tiles">
+				<li class="blue">
+					<a href="{{NeuralRutasApp.RutaURL}}BaseGestion/Internet/{{Informacion.Usuario|Codificacion}}"><span><i class="icon-globe"></i></span><span class="name">Internet</span></a>
+				</li>
+				<li class="red">
+					<a href="{{NeuralRutasApp.RutaURL}}BaseGestion/Telefonia/{{Informacion.Usuario|Codificacion}}"><span class="count"><i class="icon-phone"></i></span><span class="name">Telefonia</span></a>
+				</li>
+				<li class="lime">
+					<a href="{{NeuralRutasApp.RutaURL}}BaseGestion/Television/{{Informacion.Usuario|Codificacion}}"><span class="count"><i class="icon-desktop"></i></span><span class="name">Televisión</span></a>
+				</li>
+				<li class="orange">
+					<a href="{{NeuralRutasApp.RutaURL}}BaseGestion/Correo/{{Informacion.Usuario|Codificacion}}"><span class="count"><i class="icon-envelope"></i></span><span class="name">Correo</span></a>
+				</li>
+				<li class="magenta">
+					<a href="{{NeuralRutasApp.RutaURL}}BaseGestion/MiClaro/{{Informacion.Usuario|Codificacion}}"><span><i class="icon-cloud-upload"></i></span><span class="name">Mi Claro</span></a>
+				</li>
+				<li class="lime">
+					<a href="{{NeuralRutasApp.RutaURL}}BaseGestion/Masivos/{{Informacion.Usuario|Codificacion}}"><span><i class=" icon-sitemap"></i></span><span class="name">Reportes Masivos</span></a>
+				</li>
+				<li class="red">
+					<a href="{{NeuralRutasApp.RutaURL}}BaseGestion/LLS/{{Informacion.Usuario|Codificacion}}"><span><i class="icon-medkit"></i></span><span class="name">Llamadas de Servicio</span></a>
+				</li>
+				<li class="pink">
+					<a href="{{NeuralRutasApp.RutaURL}}BaseGestion/Iims/{{Informacion.Usuario|Codificacion}}"><span><i class="icon-wrench"></i></span><span class="name">Mejoras CCAA</span></a>
+				</li>
+
+			</ul>
+		</div>
+			
+	{% endblock %}
+	
+	{% block Script %}{% endblock %}

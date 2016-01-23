@@ -1,0 +1,73 @@
+								<table class="table table-nomargin table-bordered" style="font-family: verdana; font-size: 10px;">
+									<thead>
+										<tr>
+											<th style="text-align: center;">Servicio Afectado</th>
+											<th colspan="2" style="text-align: center;">Gestión</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% if Consulta|length>=1 %}
+											{% for Datos in Consulta %}
+												<tr id="Tr_{{Datos.Id}}">
+													<td id="Cargar_{{Datos.Id}}">{{Datos.Sintoma}}</td>
+													<td><a class="Editar" id="{{Datos.Id}}" data="Servicio Afectado: {{Datos.Sintoma}}" style="cursor:hand">Editar</a></td>
+													<td><a class="Eliminar" id="{{Datos.Id}}" data="Servicio Afectado: {{Datos.Sintoma}}" style="cursor:hand">Eliminar</a></td>
+												</tr>
+											{% endfor %}
+										{% else %}
+											<tr>
+												<td colspan="4"><h4>No Hay Datos</h4></td>
+											</tr>
+										{% endif %}
+									</tbody>
+								</table>
+
+	<script src="{{NeuralRutasApp.RutaPublico}}js/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			
+			$(".Eliminar").click(function() {
+				var ID = $(this).attr('id');
+				var Informacion = $(this).attr('data');
+				var TR = "Tr_" + ID;
+				
+				if(confirm("Desea Eliminar la Información del Servicio Afectado Correspondiente:\n" + Informacion)) {
+					if(confirm("Se Realizara la Eliminación de la Información.\nEste Proceso es Irreversible.\n\nDesea Continuar:")) {
+						$.ajax({
+							type: "POST",
+							url: "{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/LLSeliminarServicioAfectado/{{Fecha}}",
+							dataType: "html", 
+							data: { Id : ID },
+							success: function() {
+								$("#" + TR).hide("slow");
+							}
+						});
+					}
+				}
+			});
+			
+			$(".Editar").click(function() {
+				var ID = $(this).attr('id');
+				var Informacion = $(this).attr('data');
+				var Carga = "Cargar_" + ID;
+				
+				if(confirm("Desea Modificar la Información del Servicio Afectado:\n" + Informacion)) {
+					var Texto = prompt("Ingrese el Nuevo Servicio Afectado que reemplazara la Información Correspondiente\n" + Informacion);
+					if(Texto!=null && Texto!="") {
+						$.ajax({
+							type: "POST",
+							url: "{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/LLSeditarServicioAfectado/{{Fecha}}",
+							dataType: "html", 
+							data: { Id : ID, Sintoma : Texto},
+							success: function() {
+								$("#" + Carga).html(Texto.toUpperCase());
+							}
+						});
+					}
+					else {
+						alert("Debe ingresar el texto correspondiente para realizar la actualización. \n\nNo se realiza el proceso solicitado");
+					}
+				}
+			});
+		});
+	</script>

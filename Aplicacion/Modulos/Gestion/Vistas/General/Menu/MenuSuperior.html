@@ -1,0 +1,70 @@
+					<ul class='main-nav'>
+						{% if InfoSession.Matriz.Central == "true" %}
+							<li class='{{ InfoSession.Controlador == "Central" ? "active" : "" }}'><a href="{{NeuralRutasApp.RutaURL}}Central"><i class="icon-home"></i><span>Inicio</span></a></li>
+						{% endif %}
+						
+						{% if InfoSession.Matriz.AdminUsuarios == "true" %}
+							<li class='{{ InfoSession.Controlador == "AdminUsuarios" ? "active" : "" }}'>
+								<a href="#" data-toggle="dropdown" class='dropdown-toggle'><i class="icon-edit"></i><span>Administración</span><span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="{{NeuralRutasApp.RutaURL}}AdminUsuarios">Usuarios</a></li>
+									<li><a href="{{NeuralRutasApp.RutaURL}}AdminContenido">Contenido</a></li>
+								</ul>
+							</li>
+						{% endif %}
+						
+						{% if InfoSession.Matriz.AsignacionAsesores == "true" %}
+							<li class='{{ InfoSession.Controlador == "AsignacionAsesores" ? "active" : "" }}'>
+								<a href="#" data-toggle="dropdown" class='dropdown-toggle'><i class="icon-edit"></i><span>Asesores</span><span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="{{NeuralRutasApp.RutaURL}}AsignacionAsesores/Index">Listado de Asesores</a></li>
+									<li><a href="{{NeuralRutasApp.RutaURL}}AsignacionAsesores/AsiganarAsesoresExcel">Agregar Asesores Excel</a></li>
+								</ul>
+							</li>
+						{% endif %}
+						
+						{% if InfoSession.Matriz.BaseGestion == "true" %}
+							<li class='{{ InfoSession.Controlador == "BaseGestion" ? "active" : "" }}'>
+								<a href="#" data-toggle="dropdown" class='dropdown-toggle'><i class="icon-edit"></i><span>Gestión</span><span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="{{NeuralRutasApp.RutaURL}}BaseGestion">Agregar Gestión</a></li>
+								</ul>
+							</li>
+						{% endif %}
+						
+						{% if InfoSession.Matriz.Seguimiento == "true" %}
+							<li class='{{ InfoSession.Controlador == "Seguimiento" ? "active" : "" }}'>
+								<a href="#" data-toggle="dropdown" class='dropdown-toggle'><i class="icon-edit"></i><span>Seguimientos</span><span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="{{NeuralRutasApp.RutaURL}}Seguimiento">Ver Pendientes</a></li>
+									<li><a href="{{NeuralRutasApp.RutaURL}}Seguimiento/SeguimientosGenerales">Ver General</a></li>
+								</ul>
+							</li>
+						{% endif %}
+						
+						{% if InfoSession.Matriz.Consultas == "true" %}
+							<li class='{{ InfoSession.Controlador == "Consultas" ? "active" : "" }}'>
+								<a href="#" data-toggle="dropdown" class='dropdown-toggle'><i class="icon-edit"></i><span>Consultas</span><span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="{{NeuralRutasApp.RutaURL}}Consultas">Registro / Seguimiento</a></li>
+								</ul>
+							</li>
+						{% endif %}
+						
+						{% if InfoSession.Matriz.Informes == "true" %}
+							<li class='{{ InfoSession.Controlador == "Informes" ? "active" : "" }}'>
+								<a href="#" data-toggle="dropdown" class='dropdown-toggle'><i class="icon-edit"></i><span>Informes</span><span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="{{NeuralRutasApp.RutaURL}}Informes/Dia">Informe Diario</a></li>
+									<li><a href="{{NeuralRutasApp.RutaURL}}Informes/Mes">Informe Mensual</a></li>
+								</ul>
+							</li>
+						{% endif %}
+						<li>
+							<a href="#" data-toggle="dropdown" class='dropdown-toggle'><i class="icon-edit"></i><span>Sesión</span><span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="{{NeuralRutasApp.RutaURL}}ChangePass">Cambio de Contraseña</a></li>
+								<li><a href="{{NeuralRutasApp.RutaURL}}LogOut">Cerrar Sesión</a></li>
+							</ul>
+						</li>
+					</ul>

@@ -1,0 +1,136 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+		{% if Consulta|length >= 1 %}
+			<div class="span10">
+				<div class="box">
+					<div class="box-title">
+						<h3>
+							<i class="icon-table"></i>
+							Gestión de Usuarios
+						</h3>
+					</div>
+					<div class="box-content nopadding">
+						<table class="table table-nomargin table-bordered" style="font-family: verdana; font-size: 10px;">
+							<thead>
+								<tr>
+									<th>Usuario</th>
+									<th>Nombres</th>
+									<th>Apellidos</th>
+									<th>Cargo</th>
+									<th>Gestión</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for Datos in Consulta %}
+									<tr id="Fila{{loop.index}}">
+										<td>{{Datos.Usuario}}</td>
+										<td>{{Datos.Nombres}}</td>
+										<td>{{Datos.Apellidos}}</td>
+										<td>{{Datos.Cargo}}</td>
+										<td>
+											<div data="{{Datos.Nombres}} {{Datos.Apellidos}}" usuario="{{Datos.Usuario}}" style="float: left; display: inline; margin-left: 10px;">
+												<a href="#" class="Reset" id="{{loop.index}}" data="{{Datos.Id|Codificar}}">
+													<img src="{{NeuralRutasApp.RutaPublico}}img/Llave.png" title="Reset Contraseña {{Datos.Nombres}} {{Datos.Apellidos}}" />
+												</a>
+											</div>
+											
+											<div data="{{Datos.Nombres}} {{Datos.Apellidos}}" usuario="{{Datos.Usuario}}" style="float: left; display: inline; margin-left: 10px;">
+												<a href="#" class="Actualizar" id="{{loop.index}}" data="{{Datos.Id|Encriptar}}">
+													<img src="{{NeuralRutasApp.RutaPublico}}img/Data.png" title="Actualizar Datos de {{Datos.Nombres}} {{Datos.Apellidos}}" />
+												</a>
+											</div>
+											
+											<div data="{{Datos.Nombres}} {{Datos.Apellidos}}" usuario="{{Datos.Usuario}}" style="float: left; display: inline; margin-left: 10px;">
+												<a href="#" class="Eliminar" id="{{loop.index}}" data="{{Datos.Id|Encriptar}}">
+													<img src="{{NeuralRutasApp.RutaPublico}}img/eliminar.png" title="Eliminar Datos de {{Datos.Nombres}} {{Datos.Apellidos}}" />
+												</a>
+											</div>
+											
+										</td>
+										
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		{% else %}
+			<div class="box">
+				<div class="box-title">
+					<h3>
+						<i class="icon-link"></i>
+						Gestión de Usuarios
+					</h3>
+				</div>
+				<div class="box-content">
+					<blockquote>
+						<p>
+							No hay usuarios en la base de datos para su gestión correspondiente
+						</p>
+					</blockquote>
+				</div>
+			</div>
+		{% endif %}
+	{% endblock %}
+		
+	{% block Script %}
+			
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$(".Reset").click(function() {
+					var ID = $(this).attr('id');
+					var Data = $(this).attr('data');
+					var Nombre = $(this).parent().attr('data');
+					var Usuario = $(this).parent().attr('Usuario');
+					
+					if(confirm("Confirma El Reset de Contraseña de " + Nombre)) {
+						$.ajax({
+							type: "POST",
+							url: "{{NeuralRutasApp.RutaURL}}Ajax_AdminUsuarios/ResetPassword/{{Fecha|Codificar}}",
+							data: {ID : ID, Datos : Data, Nombre : Nombre},
+							success: function () {
+								alert("Cambio de Contraseña Realizado \n\n Nombre: " + Nombre + "\n Usuario: " + Usuario + "\n Contraseña: Número de Cedula");
+							}
+						})
+					}
+				})
+			});
+			
+			$(document).ready(function () {
+				$(".Actualizar").click(function () {
+					var ID = $(this).attr('id');
+					var Data = $(this).attr('data');
+					var Nombre = $(this).parent().attr('data');
+					var Usuario = $(this).parent().attr('Usuario');
+					
+					if(confirm("Desea Actualizar Los Datos de " + Nombre)) {
+						location.href = "{{NeuralRutasApp.RutaURL}}AdminUsuarios/ActualizarUsuario/" + Data;
+					}
+				})
+			});
+			
+			$(document).ready(function() {
+				$(".Eliminar").click(function() {
+					var ID = $(this).attr('id');
+					var Data = $(this).attr('data');
+					var Nombre = $(this).parent().attr('data');
+					var Usuario = $(this).parent().attr('Usuario');
+					
+					if(confirm("Desea Eliminar Los Datos de " + Nombre + "?")) {
+						if(confirm("ELIMINACION DE DATOS \n\nDesea Eliminar Los Datos de " + Nombre + "?\n\nRecuerde que este procedimiento de Eliminación NO ES REVERSIBLE y los datos se eliminaran de forma DEFINITIVA")) {
+							$.ajax({
+								type: "POST",
+								url: "{{NeuralRutasApp.RutaURL}}Ajax_AdminUsuarios/EliminarUsuario/{{Fecha|Codificar}}",
+								data: {Datos : Data},
+								success: function () {
+									$("#Fila" + ID).hide('slow');
+								}	
+							})
+						}
+					}
+				})
+			});
+		</script>
+	{% endblock %}

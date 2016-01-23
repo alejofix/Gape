@@ -1,0 +1,74 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+					
+					<style>
+						.error {
+							font-family: verdana;
+							font-size: 10px;
+							font-weight: bold;
+							color: red;
+						}
+					</style>
+					<div class="span6">
+						<div class="box box-bordered box-color">
+							<div class="box-title">
+								<h3><i class="icon-th-list"></i> Nuevo Usuario</h3>
+							</div>
+							<div class="box-content nopadding">
+								<form action="#" method="POST" class="form-horizontal form-bordered" name="Form" id="Form">
+									<div class="control-group">
+										<label for="textfield" class="control-label">Usuario</label>
+										<div class="controls">
+											<input name="Usuario" id="Usuario" placeholder="Usuario" class="input-xlarge" type="text" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label for="textfield" class="control-label">Cedula</label>
+										<div class="controls">
+											<input name="Cedula" id="Cedula" placeholder="Cedula del Usuario" class="input-xlarge" type="text" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label for="password" class="control-label">Nombres</label>
+										<div class="controls">
+											<input name="Nombres" id="Nombres" placeholder="Nombres del Usuario" class="input-xlarge" type="text" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label for="textfield" class="control-label">Apellidos</label>
+										<div class="controls">
+											<input name="Apellidos" id="Apellidos" placeholder="Apellidos del Usuario" class="input-xlarge" type="text" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label for="textfield" class="control-label">Cargo</label>
+										<div class="controls">
+											<input name="Cargo" id="Cargo" placeholder="Cargo del Usuario" class="input-xlarge" type="text" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label for="textfield" class="control-label">Permisos</label>
+										<div class="controls">
+											<select name="Permisos" id="Permisos">
+												<option value="">Escoja Una Opción</option>
+												{% for Datos in Permisos %}
+													<option value="{{Datos.Id|Codificacion}}">{{Datos.Nombre}} [Llave Publica: {{Datos.Id|LlavePublica}}]</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+									<div class="form-actions">
+										<button type="submit" class="btn btn-primary">Guardar</button>
+										<input type="hidden" name="Data" value="{{Fecha|Codificacion}}" />
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					
+	{% endblock %}
+		
+	{% block Script %}
+		{{Script|raw}}
+	{% endblock %}

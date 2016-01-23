@@ -1,0 +1,69 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+		<style>
+			label {
+				font-family: verdana;
+				font-size: 10px;
+				font-weight: bold;
+			}
+			.error {
+				font-family: verdana;
+				font-size: 10px;
+				font-weight: bold;
+				color: red;
+			}
+		</style>
+		<div class="row-fluid">
+			<div class="span6">
+				<div class="box">
+					<div class="box-title">
+						<h3>
+							<i class="icon-reorder"></i>
+							{{Titulo}}
+						</h3>
+					</div>
+					<div class="box-content">
+						<form action="#" method="POST" name="Form" id="Form">
+							<label>Seleccione el Día</label>
+							<input type="date" name="Fecha" id="Fecha" />
+							<input type="submit" value="Consultar" class="btn btn-primary" />
+						</form> 
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid" id="CargarContenido"></div>
+	{% endblock %}
+		
+	{% block Script %}
+
+		<script type="text/javascript" src="{{NeuralRutasApp.RutaURLBase}}Public/js/jquery.validate.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#Form").validate({
+					rules: {
+						Fecha: { required: true }
+					},
+					messages: {
+						Fecha: { required: "Ingrese Fecha de la Consulta en Formato Año-Mes-Dia" }
+					},
+				submitHandler: function(form) {
+					$.ajax({
+						type: "POST", 
+						url: "{{NeuralRutasApp.RutaURL}}Ajax_Informes/Dia/{{Fecha}}", 
+						dataType: "html", 
+						data: $("#Form").serialize(), 
+						beforeSend:function(){
+							$("#CargarContenido").html('<div style="border: 0px; font-family: verdana; text-align: center;"><img src="{{NeuralRutasApp.RutaPublico}}img/plugins/xeditable/loading.gif" alt="" style="border: 0px; font-family: verdana; width: 25px; height: 25px; text-align: center;" /></div>');
+						},
+						success: function(response){
+							$("#CargarContenido").html(response);
+						}
+					})
+					}
+				});
+			});
+		</script>
+		
+	{% endblock %}

@@ -1,0 +1,54 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+		<style>
+			.error {
+				font-family: verdana;
+				color: red;
+				font-size: 10px;
+				font-weight: bold;
+			}
+		</style>
+<div class="span6">
+	<div class="box box-bordered box-color" style="width: 500px;">
+		<div class="box-title">
+			<h3><i class="icon-th-list"></i>Cambio de Contraseña {{InfoSession.Usuario}}</h3>
+		</div>
+		<div class="box-content nopadding">
+			<form action="#" method="POST" name="Formulario" id="Formulario">
+			<table class="table table-nomargin table-bordered" style="font-family: verdana; font-size: 10px; width: auto;">
+				<thead>
+					<tr role="row">
+					<th style="width: 250px;"><h5>Nueva Contraseña<h5></th>
+					<th style="width: 250px;"><h5>Confirmar Contraseña</h5></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="odd">
+						<td class="">
+						<input type="password" name="PW_1" id="PW_1"/>
+						</td>
+						<td class="">
+						<input type="password" name="PW_2" id="PW_2"/>
+						</td>
+					</tr>
+					<tr class="odd">
+						<td class="sorting_1" colspan="3">
+						
+						<div id="respuesta">
+							<input type="hidden" name="Data" id="Data" value="{{Consulta.0.Id|Codificar}}" />
+							<input type="submit" name="Cambiar" id="Cambiar" value="Cambiar Contraseña" class="btn btn-primary" />
+						</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</form>
+		</div>
+	</div>
+</div>
+	{% endblock %}	
+	
+	{% block Script %}
+		{{Scrip|raw}}
+	{% endblock %}	

@@ -1,0 +1,41 @@
+	<div class="box">
+		<div class="box-title">
+			<h3>
+				<i class="icon-link"></i>
+				Usuarios Ingresados
+			</h3>
+		</div>
+		<div class="box-content">
+			<blockquote>
+				<p>
+					Se ha generado el ingreso de los Asesores a la Base de Datos Correspondiente
+				</p>
+				<small>Asesore Excel</small>
+			</blockquote>
+		</div>
+	</div>
+	{% if No_Guardados|length>=1 %}
+		<h5>Registros No ingresados, ya se Encuentran en la Base de Datos</h5>
+		<div class="box-content nopadding">
+			<table class="table table-nomargin" style="font-family: verdana; font-size: 10px;">
+				<thead>
+					<tr>
+						<th>Usuario</th>
+						<th>Nombres</th>
+						<th>Apellidos</th>
+						<th>Cedula</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for Datos in No_Guardados %}
+						<tr>
+							<td>{{Datos.Usuario}}</td>
+							<td>{{Datos.Nombres}}</td>
+							<td>{{Datos.Apellidos}}</td>
+							<td>{{Datos.Cedula}}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	{% endif %}

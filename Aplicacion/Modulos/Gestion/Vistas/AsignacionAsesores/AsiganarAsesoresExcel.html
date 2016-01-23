@@ -1,0 +1,41 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+					<style>
+						.error {
+							font-size: 10px;
+							font-weight: bold;
+							font-family: verdana;
+							color: red;
+						}
+					</style>
+					<div class="span6">
+						<div class="box box-bordered box-color">
+							<div class="box-title">
+								<h3><i class="icon-th-list"></i> Asignar Asesores a Partir de Listado de Excel</h3>
+							</div>
+							<div class="box-content nopadding">
+								<form action="#" method="POST" class="form-horizontal form-bordered" id="Form_Asesores">
+									<div class="control-group">
+										<label for="textarea" class="control-label">Listado</label>
+										<div class="controls">
+											<textarea name="Listado" id="Listado" rows="5" class="input-block-level"></textarea>
+										</div>
+									</div>
+									<div class="form-actions">
+										<input type="hidden" name="Usuario" value="{{InfoSession.Usuario|Codificacion}}" />
+										<button type="submit" class="btn btn-primary">Asignar</button>
+									</div>
+								</form>
+							</div>
+						</div>
+						
+						<p><h6>Recuerde que debe seleccionar un rango de datos en el excel de forma vertical, el dato a validar sera el usuario de RR correspondiente.</h6></p>
+						
+					</div>
+			
+	{% endblock %}
+	
+	{% block Script %}
+		{{Script|raw}}
+	{% endblock %}

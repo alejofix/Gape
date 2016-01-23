@@ -1,0 +1,89 @@
+			<div class="box">
+				<div class="box-title">
+					<h3>
+						<i class="icon-table"></i>
+						{{Proceso}}
+					</h3>
+				</div>
+				<div class="box-content nopadding">
+					<table class="table table-nomargin" style="font-family: verdana; font-size: 10px;">
+						<thead>
+							<tr>
+								<th colspan="3">{{Proceso}}</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% if Consulta|length>=1 %}
+								{% for Datos in Consulta %}
+									<tr id="Tr_{{Datos.Id}}">
+										<td>
+											<a href="#" class="Eliminar" id="{{Datos.Id}}" data="{{Datos.Sintoma}}">Eliminar</a>
+										</td>
+										<td>
+											<a href="#" class="Editar" id="{{Datos.Id}}" data="{{Datos.Sintoma}}">Editar</a>
+										</td>
+										<td id="Respuesta_{{Datos.Id}}">{{Datos.Sintoma}}</td>
+									</tr>
+								{% endfor %}
+							{% else %}
+								<tr>
+									<td><h5>No Hay Sintomas en la Base de Datos</h5></td>
+								</tr>
+							{% endif %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<script src="{{NeuralRutasApp.RutaPublico}}js/jquery.min.js"></script>
+			<script>
+				$(document).ready(function() {
+					$(".Eliminar").click(function() {
+						var Id = $(this).attr('id');
+						var Sintoma = $(this).attr('data');
+						var Tr = $(this).parent().parent().attr('id');
+						var Respuesta = "Respuesta_"+Id;
+						
+						if(confirm("Desea Eliminar El {{Proceso}}:\n\nSintoma: " + Sintoma)) {
+							$.ajax({
+								type: "POST",
+								url: "{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/EliminarSintoma/{{Fecha}}",
+								dataType: "html", 
+								data: { Id : Id },
+								success: function() {
+									$("#" + Tr).hide('slow');
+								}
+							});
+						}
+					});
+				});
+				
+				$(document).ready(function() {
+					$(".Editar").click(function() {
+						var Id = $(this).attr('id');
+						var Sintoma = $(this).attr('data');
+						var Tr = $(this).parent().parent().attr('id');
+						var Respuesta = "Respuesta_"+Id;
+						
+						if(confirm("Desea Realizar la Actualización del Sintoma\n\nSintoma: " + Sintoma)) {
+							var PromptMsg = prompt("Ingrese el Texto a Reemplazar " + Sintoma);
+							
+							if(PromptMsg!=null && PromptMsg!='') {
+								$.ajax({
+									type: "POST",
+									url: "{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/ActualizarSintoma/{{Fecha}}",
+									dataType: "html", 
+									data: { Id : Id, Sintoma : PromptMsg },
+									success: function() {
+										$("#" + Respuesta).html(PromptMsg.toUpperCase());
+									}
+								});
+							}
+							else {
+								alert("Lo sentimos, debe ingresar un Texto para reemplazar");
+							}
+						}
+					});
+				});
+			
+			</script>

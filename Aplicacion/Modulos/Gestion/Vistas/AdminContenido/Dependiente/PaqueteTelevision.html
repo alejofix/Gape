@@ -1,0 +1,263 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+		<style>
+			label {
+				font-weight: bold;
+				font-family: verdana;
+				font-size: 10px;
+				width: 45px;
+			}
+			.text-input {
+				font-family: verdana;
+				font-size: 10px;
+				text-indent: 10px;
+				font-weight: bold;
+			}
+			.error {
+				font-family: verdana;
+				font-size: 10px;
+				color: red;
+				width: 100%;
+			}
+		</style>
+		<div class="row-fluid">
+					<div class="span6">
+						<div class="box box-bordered">
+							<div class="box-title">
+								<h3>
+									<i class="icon-reorder"></i>
+									Paquete Televisión
+								</h3>
+							</div>
+							<div class="box-content">
+								<ol>
+									<li>
+										<a href="#" id="MostrarNuevoPaqueteModelo">Nuevo Paquete y Modelo</a>
+									</li>
+									<li>
+										<a href="#" id="MostrarPaqueteExistenteNuevoModelo">Paquete Existente y Nuevo Modelo</a>
+									</li>
+								</ol>
+								
+								<div id="ContenidoNuevoPaqueteModelo" style="display: none;">
+									<form action="#" method="POST" name="NuevoNuevo" id="NuevoNuevo" class="form-horizontal">
+										<label>Paquete</label><input name="NuevoPaquete" id="NuevoPaquete" class="text-input" /> 
+										<label>Modelo</label>
+										<select name="NuevoModelo" id="NuevoModelo">
+											<option value="">Escoja Una Opción</option>
+											<option value="NO EXISTE">NO EXISTE</option>
+											<option value="PERSONALIZADO">PERSONALIZADO</option>
+										</select>
+										<div id="CargarCampoPaqueteNuevo"></div>
+										<br />
+										<input type="submit" value="Guardar" class="btn btn-primary" />
+									</form>
+								</div>
+								
+								<div id="ContenidoPaqueteExistenteNuevoModelo" style="display: none;">
+									<form action="#" method="POST" name="NuevoExistente" id="NuevoExistente" class="form-horizontal">
+										<label>Paquete</label>
+										<select name="PaqueteExistente" id="PaqueteExistente"></select> 
+										<label>Modelo</label>
+										<select name="NuevoExistenteModelo" id="NuevoExistenteModelo">
+											<option value="">Escoja Una Opción</option>
+											<option value="NO EXISTE">NO EXISTE</option>
+											<option value="PERSONALIZADO">PERSONALIZADO</option>
+										</select>
+										<div id="CargarCampoPaqueteNuevo2"></div>
+										<br />
+										<input type="submit" value="Guardar" class="btn btn-primary" />
+									</form>
+								</div>
+								 
+							</div>
+						</div>
+					</div>
+					<div class="span6">
+						<div class="box box-color box-bordered">
+							<div class="box-title">
+								<h3>
+									<i class="icon-reorder"></i>
+									Modelo Televisión
+								</h3>
+							</div>
+							<div class="box-content" id="ContenidoGestion">
+								 
+							</div>
+						</div>
+					</div>
+				</div>
+	{% endblock %}
+		
+	{% block Script %}
+		<script>
+			$(document).ready(function() {
+				
+				$("#PaqueteExistente").load("{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/ListarPaqueteTelevision");
+				$("#ContenidoGestion").load("{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/ListarPaqueteTelevisionTabla");
+				
+				$("#MostrarPaqueteExistenteNuevoModelo").click(function() {
+					$("#ContenidoPaqueteExistenteNuevoModelo").each(function() {
+						var Visualizacion = $(this).css("display");
+						if(Visualizacion == "block") {
+							$(this).fadeOut("slow", function() {
+								$(this).css("display", "none");
+							});
+						}
+						else {
+							$(this).fadeIn("slow", function() {
+								$(this).css("display", "block");
+							});
+							$("#ContenidoNuevoPaqueteModelo").fadeOut("slow", function() {
+								$("#ContenidoNuevoPaqueteModelo").css("display", "none");
+							});
+						}
+					});
+				});
+				
+				$("#MostrarNuevoPaqueteModelo").click(function() {
+					$("#ContenidoNuevoPaqueteModelo").each(function() {
+						var Visualizacion = $(this).css("display");
+						if(Visualizacion == "block") {
+							$(this).fadeOut("slow", function() {
+								$(this).css("display", "none");
+							});
+						}
+						else {
+							$(this).fadeIn("slow", function() {
+								$(this).css("display", "block");
+							});
+							$("#ContenidoPaqueteExistenteNuevoModelo").fadeOut("slow", function() {
+								$(this).css("display", "none");
+							});
+						}
+					});
+				});
+				
+				$("#NuevoModelo").change(function() {
+					$("#NuevoModelo option:selected").each(function() {
+						var NuevoModelo = $(this).val();
+						if(NuevoModelo == "PERSONALIZADO") {
+							$("#CargarCampoPaqueteNuevo").fadeIn("slow", function() {
+								$("#CargarCampoPaqueteNuevo").html("<label>Personalizado</label> <input name=\"Personalizado\" id=\"Personalizado\" class=\"text-input\" />");
+							});
+						}
+						else { 
+							$("#CargarCampoPaqueteNuevo").empty();
+						}
+					});
+				});
+				
+				$("#NuevoExistenteModelo").change(function() {
+					$("#NuevoExistenteModelo option:selected").each(function() {
+						var NuevoModelo = $(this).val();
+						if(NuevoModelo == "PERSONALIZADO") {
+							$("#CargarCampoPaqueteNuevo2").fadeIn("slow", function() {
+								$("#CargarCampoPaqueteNuevo2").html("<label>Personalizado</label> <input name=\"Personalizado\" id=\"Personalizado\" class=\"text-input\" />");
+							});
+						}
+						else { 
+							$("#CargarCampoPaqueteNuevo2").empty();
+						}
+					});
+				});
+				
+			});
+		</script>
+		
+		<script type="text/javascript" src="{{NeuralRutasApp.RutaURLBase}}Public/js/jquery.validate.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				
+				$("#NuevoNuevo").validate({
+					rules: {
+						NuevoPaquete: {required: true}, 
+						NuevoModelo: {required: true}, 
+						Personalizado: {required: true}
+					},
+					messages: {
+						NuevoPaquete: {required: "Ingrese el Nuevo Paquete"}, 
+						NuevoModelo: {required: "Seleccione el Nuevo Modelo"}, 
+						Personalizado: {required: "Ingrese el Modelo Personalizado"}
+					},
+				submitHandler: function(form) {
+					var Paquete = $("#NuevoPaquete").val();
+					var Validacion = $("#NuevoModelo").val();
+					if(Validacion == "PERSONALIZADO") {
+						var Modelo = $("#Personalizado").val();
+					}
+					else {
+						var Modelo = Validacion;
+					}
+					$.ajax({
+						type: "POST", 
+						url: "{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/AgregarPaqueteTelevision/{{Fecha}}", 
+						dataType: "html", 
+						data: { Paquete : Paquete, Modelo : Modelo}, 
+						beforeSend:function(){
+							$("#ContenidoGestion").html('<div style="border: 0px; font-family: verdana; text-align: center;"><img src="{{NeuralRutasApp.RutaPublico}}img/plugins/xeditable/loading.gif" alt="" style="border: 0px; font-family: verdana; width: 25px; height: 25px; text-align: center;" /></div>');
+						},
+						success: function(){
+							$("#PaqueteExistente").load("{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/ListarPaqueteTelevision");
+							$("#ContenidoGestion").load("{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/ListarPaqueteTelevisionTabla");
+						}
+					})
+					}
+				});
+				
+				$(document).ready(function () {
+					$('#NuevoNuevo').submit(function () {
+						$('#NuevoNuevo')[0].reset();
+						$("#CargarCampoPaqueteNuevo").empty();
+					});
+				});
+				
+				
+				$("#NuevoExistente").validate({
+					rules: {
+						NuevoPaquete: {required: true}, 
+						NuevoModelo: {required: true}, 
+						Personalizado: {required: true}
+					},
+					messages: {
+						NuevoPaquete: {required: "Seleccione Un Paquete"}, 
+						NuevoModelo: {required: "Seleccione el Nuevo Modelo"}, 
+						Personalizado: {required: "Ingrese el Modelo Personalizado"}
+					},
+				submitHandler: function(form) {
+					var Paquete = $("#PaqueteExistente").val();
+					var Validacion = $("#NuevoExistenteModelo").val();
+					if(Validacion == "PERSONALIZADO") {
+						var Modelo = $("#Personalizado").val();
+					}
+					else {
+						var Modelo = Validacion;
+					}
+					$.ajax({
+						type: "POST", 
+						url: "{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/AgregarPaqueteTelevision/{{Fecha}}", 
+						dataType: "html", 
+						data: { Paquete : Paquete, Modelo : Modelo}, 
+						beforeSend:function(){
+							$("#ContenidoGestion").html('<div style="border: 0px; font-family: verdana; text-align: center;"><img src="{{NeuralRutasApp.RutaPublico}}img/plugins/xeditable/loading.gif" alt="" style="border: 0px; font-family: verdana; width: 25px; height: 25px; text-align: center;" /></div>');
+						},
+						success: function(){
+							$("#PaqueteExistente").load("{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/ListarPaqueteTelevision");
+							$("#ContenidoGestion").load("{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/ListarPaqueteTelevisionTabla");
+						}
+					})
+					}
+				});
+				
+				$(document).ready(function () {
+					$('#NuevoExistente').submit(function () {
+						$('#NuevoExistente')[0].reset();
+						$("#CargarCampoPaqueteNuevo2").empty();
+					});
+				});
+				
+			});
+		</script>
+		
+	{% endblock %}

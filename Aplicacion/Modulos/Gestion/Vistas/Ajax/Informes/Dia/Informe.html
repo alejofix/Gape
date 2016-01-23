@@ -1,0 +1,113 @@
+	<script src="{{NeuralRutasApp.RutaPublico}}js/jquery.min.js"></script>
+	<script src="{{NeuralRutasApp.RutaPublico}}extras/charts/js/highcharts.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$('#container').highcharts({
+				chart: {
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: true
+				},
+				title: {
+					text: 'Tipos de Reportes'
+				},
+				tooltip: {
+					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: true,
+							color: '#000000',
+							connectorColor: '#000000',
+							format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+						},
+						enableMouseTracking: true
+					}
+				},
+				series: [{
+					type: 'pie',
+					name: 'Porcentaje',
+					data: [
+						{{PieFormatoTipoReporte(Consulta.Tipo_Reporte)|raw}}
+					]
+				}]
+			});
+		});
+	</script>
+		
+	<div class="row-fluid">
+		<div class="span6">
+			<div class="box box-color box-bordered">
+				<div class="box-title">
+					<h3>
+						<i class="icon-reorder"></i>
+						Tipos de Reporte
+					</h3>
+				</div>
+				<div class="box-content" id="container">
+					 
+				</div>
+			</div>
+		</div>
+		
+		{% for Puntero, Valor in Consulta.Sintomas %}
+			<div class="span5">
+				<div class="box box-color box-bordered">
+					<div class="box-title">
+						<h3>
+							<i class="icon-reorder"></i>
+							Sintoma {{Puntero}}
+						</h3>
+					</div>
+					<div class="box-content" id="container_{{Puntero}}">
+						 
+					</div>
+				</div>
+			</div>
+			
+			<script type="text/javascript">
+				$(function () {
+					$('#container_{{Puntero}}').highcharts({
+						chart: {
+							plotBackgroundColor: null,
+							plotBorderWidth: null,
+							plotShadow: true
+						},
+						title: {
+							text: 'Sintomas {{Puntero}}'
+						},
+						tooltip: {
+							pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+						},
+						plotOptions: {
+							pie: {
+								allowPointSelect: true,
+								cursor: 'pointer',
+								dataLabels: {
+									enabled: true,
+									color: '#000000',
+									connectorColor: '#000000',
+									format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+								},
+								enableMouseTracking: true
+							}
+						},
+						series: [{
+							type: 'pie',
+							name: 'Porcentaje',
+							data: [
+								{{PieFormatoSintomas(Valor)|raw}}
+							]
+						}]
+					});
+				});
+			</script>
+		{% endfor %}
+	
+	
+	
+	
+	</div>

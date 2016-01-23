@@ -1,0 +1,19 @@
+								{% if Notas|length >=1 %}
+									<ul class="messages withlist">
+										{% for Datos in Notas %}
+										<li class="right">
+											<div class="image">
+												<img src="{{NeuralRutasApp.RutaPublico}}img/demo/user-avatar.jpg" alt="">
+											</div>
+											<div class="message">
+												<span class="caret"></span>
+												<span class="name">{{Datos.Nombres|raw}} {{Datos.Apellidos|raw}}</span>
+												<p>{{Datos.Notas|raw}}</p>
+												<span class="time">
+													<b>Fecha:</b> {{Datos.Fecha|raw}} <b>Hora:</b> {{Datos.Hora|raw}}
+												</span>
+											</div>
+										</li>
+										{% endfor %}
+									</ul>
+								{% endif %}

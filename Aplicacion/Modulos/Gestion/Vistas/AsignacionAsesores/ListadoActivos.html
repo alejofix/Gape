@@ -1,0 +1,97 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+	
+		<div class="span8">
+			<div class="box box-color box-bordered">
+				<div class="box-title">
+					<h3 style="font-size: 14px;"><i class="icon-table"></i> Listado de Usuarios</h3>
+				</div>
+				<div class="box-content nopadding">
+					<table class="table table-nomargin table-bordered" style="font-family: verdana; font-size: 10px;">
+						<thead>
+							<tr role="row">
+								<th>Usuario</th>
+								<th>Nombres</th>
+								<th>Apellidos</th>
+								<th>Estado</th>
+								<th>Gestión</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% if Consulta|length >= 1 %}
+								{% for Datos in Consulta %}
+									<tr id="Fila_{{Datos.Id}}">
+										<td>{{Datos.Usuario}}</td>
+										<td>{{Datos.Nombres}}</td>
+										<td>{{Datos.Apellidos}}</td>
+										<td id="Respuesta_{{Datos.Id}}">{{Datos.Asignacion}}</td>
+										<td class="Boton" id="{{Datos.Id}}" data="{{Datos.Asignacion}}"></td>
+									</tr>
+								{% endfor %}
+							{% else %}
+								<tr class="odd">
+									<td class="sorting_1" colspan="4"><h4>No Hay Datos para Mostrar</h4></td>
+								</tr>
+							{% endif %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+			
+	{% endblock %}
+	
+	{% block Script %}
+		<script src="{{NeuralRutasApp.RutaPublico}}extras/boton_iphone/jquery.iphone-switch.js" type="text/javascript"></script>
+		<script>
+			$(document).ready(function() {
+				$(".Boton").before(function() {
+					var ID = $(this).attr('id');
+					var Estado = $(this).attr('data');
+					var Fila = "Fila_" + ID;
+					var Respuesta = "Respuesta_" + ID;
+					
+					if(Estado == 'ASIGNADO') {
+						var Encendido = "on";
+					}
+					else {
+						var Encendido = "off";
+					}
+					
+					$("#" + ID).iphoneSwitch(Encendido, 
+						function() {
+							$.ajax({
+								type: "POST",
+								url: "{{NeuralRutasApp.RutaURL}}Ajax_AsignacionAsesores/GestionAsignacionUsuario/{{Fecha}}",
+								dataType: "html", 
+								data: { Id : ID, Estado : Estado},
+								success: function(response) {
+									$("#" +ID).attr("data", "ASIGNADO");
+									$("#" + Fila).css({background : "#58ACFA", color : "#000000"});
+									$("td").off('mouseenter mouseleave');
+									$("#" + Respuesta).html(response);
+								}
+							});
+						},
+						function() {
+							$.ajax({
+								type: "POST",
+								url: "{{NeuralRutasApp.RutaURL}}Ajax_AsignacionAsesores/GestionNoAsignacionUsuario/{{Fecha}}",
+								dataType: "html", 
+								data: { Id : ID, Estado : Estado},
+								success: function(response) {
+									$("#" +ID).attr("data", "NO ASIGNADO");
+									$("#" + Fila).css({background : "#FFFFFF", color : "#000000"});
+									$("#" + Respuesta).html(response);
+								}
+							});
+						},
+						{
+							switch_on_container_path: '{{NeuralRutasApp.RutaPublico}}extras/boton_iphone/iphone_switch_container_off.png'
+						}
+					);
+				});
+			});
+		</script>
+	{% endblock %}

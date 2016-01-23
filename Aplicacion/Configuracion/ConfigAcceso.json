@@ -1,0 +1,40 @@
+{
+	"DEFAULT":
+	{
+		"Enrutamiento":
+		{
+			"Carpeta":				"Gestion/",
+			"Configuracion":		"Configuracion/",
+			"Ayudas":				"Helpers/",
+			"Vendors":				"Vendors/",
+			"Controladores":		"Controladores/",
+			"Modelos":				"Modelos/",
+			"Vistas":				"Vistas/"
+		},
+		"Configuracion":
+		{
+			"Entorno_Desarrollo": 	false,
+			"Llave_Encriptacion":	"d49cd3db725add42126275e7f2d0d97e",
+			"Codificacion":			"Content-Type: text/html; charset=UTF-8"
+		}
+	},
+	"GESTION":
+	{
+		"Enrutamiento":
+		{
+			"Carpeta":				"Gestion/",
+			"Configuracion":		"Configuracion/",
+			"Ayudas":				"Helpers/",
+			"Vendors":				"Vendors/",
+			"Controladores":		"Controladores/",
+			"Modelos":				"Modelos/",
+			"Vistas":				"Vistas/"
+		},
+		"Configuracion":
+		{
+			"Entorno_Desarrollo": 	false,
+			"Llave_Encriptacion":	"d49cd3db725add42126275e7f2d0d97e",
+			"Codificacion":			"Content-Type: text/html; charset=UTF-8"
+		}
+	}
+}

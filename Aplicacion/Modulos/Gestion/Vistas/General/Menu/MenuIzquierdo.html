@@ -1,0 +1,87 @@
+				<div id="left">
+				{% if InfoSession.Matriz.AdminUsuarios == "true" %}
+					<div class="subnav">
+						<div class="subnav-title">
+							<a href="#" class='toggle-subnav'><i class="icon-angle-down"></i><span>Administración</span></a>
+						</div>
+						<ul class="subnav-menu">
+							<li><a href="{{NeuralRutasApp.RutaURL}}AdminUsuarios" title="Ver Administración Usuarios">Usuarios</a></li>
+							<li><a href="{{NeuralRutasApp.RutaURL}}AdminContenido" title="Ver Administración Contenido">Contenido</a></li>
+						</ul>
+					</div>
+				{% endif %}
+				
+				{% if InfoSession.Matriz.AsignacionAsesores == "true" %}
+					<div class="subnav">
+						<div class="subnav-title">
+							<a href="#" class='toggle-subnav'><i class="icon-angle-down"></i><span>Asesores</span></a>
+						</div>
+						<ul class="subnav-menu">
+							<li><a href="{{NeuralRutasApp.RutaURL}}AsignacionAsesores/Index" title="Listado de Asesores">Listado de Asesores</a></li>
+							<li><a href="{{NeuralRutasApp.RutaURL}}AsignacionAsesores/AsiganarAsesoresExcel" title="Agregar Asesores Excel">Agregar Asesores Excel</a></li>
+						</ul>
+					</div>
+				{% endif %}
+				
+				{% if InfoSession.Matriz.BaseGestion == "true" %}
+					<div class="subnav">
+						<div class="subnav-title">
+							<a href="#" class='toggle-subnav'><i class="icon-angle-down" title="Gestión Usuario"></i><span>Gestión</span></a>
+						</div>
+						<ul class="subnav-menu">
+							<li><a href="{{NeuralRutasApp.RutaURL}}BaseGestion" title="Agregar Gestión">Agregar Gestión</a></li>
+						</ul>
+					</div>
+				{% endif %}
+
+				{% if InfoSession.Matriz.Seguimiento == "true" %}
+					<div class="subnav">
+						<div class="subnav-title">
+							<a href="#" class='toggle-subnav'><i class="icon-angle-down"></i><span>Seguimientos</span></a>
+						</div>
+						<ul class="subnav-menu">
+							<li><a href="{{NeuralRutasApp.RutaURL}}Seguimiento" title="Ver Seguimientos Pendientes">Ver Pendientes</a></li>
+							<li><a href="{{NeuralRutasApp.RutaURL}}Seguimiento/SeguimientosGenerales" title="Ver Seguimientos General">Ver General</a></li>
+						</ul>
+					</div>
+				{% endif %}
+				
+				{% if InfoSession.Matriz.Consultas == "true" %}
+					<div class="subnav">
+						<div class="subnav-title">
+							<a href="#" class='toggle-subnav'><i class="icon-angle-down"></i><span>Consultas</span></a>
+						</div>
+						<ul class="subnav-menu">
+							<li><a href="{{NeuralRutasApp.RutaURL}}Consultas" title="Consultar Registro / Seguimiento">Registro / Seguimiento</a></li>
+						</ul>
+					</div>
+				{% endif %}
+				
+				{% if InfoSession.Matriz.Descargas == "true" %}
+					<div class="subnav">
+						<div class="subnav-title">
+							<a href="#" class='toggle-subnav'><i class="icon-angle-down"></i><span>Descargas</span></a>
+						</div>
+						<ul class="subnav-menu">
+							<!-- Ds 
+							<li><a href="{{NeuralRutasApp.RutaURL}}Descargas/Mensual" title="Base General Mensual">Base General Mensual</a></li>
+							-->
+							<li><a href="{{NeuralRutasApp.RutaURL}}Descargas/Diaria" title="Base General Diario">Base General Díario</a></li>
+							<li><a href="{{NeuralRutasApp.RutaURL}}Descargas/Seguimientos" title="Base General Mensual">Seguimientos</a></li>
+						</ul>
+					</div>
+				{% endif %}
+				{% if InfoSession.Matriz.Informes == "true" %}
+					<div class="subnav">
+						<div class="subnav-title">
+							<a href="#" class='toggle-subnav'><i class="icon-angle-down"></i><span>Informes</span></a>
+						</div>
+						<ul class="subnav-menu">
+							<li><a href="{{NeuralRutasApp.RutaURL}}Informes/Dia" title="Informe Diario">Informe Diario</a></li>
+							<li><a href="{{NeuralRutasApp.RutaURL}}Informes/Mes" title="Informe Mensual">Informe Mensual</a></li>
+						</ul>
+					</div>
+				{% endif %}
+
+
+				</div>

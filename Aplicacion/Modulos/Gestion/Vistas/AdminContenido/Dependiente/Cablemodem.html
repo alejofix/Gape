@@ -1,0 +1,210 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+		<style>
+			label {
+				font-weight: bold;
+				font-family: verdana;
+				font-size: 10px;
+				width: 45px;
+			}
+			.text-input {
+				font-family: verdana;
+				font-size: 10px;
+				text-indent: 10px;
+				font-weight: bold;
+			}
+			.error {
+				font-family: verdana;
+				font-size: 10px;
+				color: red;
+				width: 100%;
+			}
+		</style>
+		<div class="row-fluid">
+					<div class="span6">
+						<div class="box box-bordered">
+							<div class="box-title">
+								<h3>
+									<i class="icon-reorder"></i>
+									Cablemodems Internet
+								</h3>
+							</div>
+							<div class="box-content">
+								<ol>
+									<li>
+										<a href="#" id="MostrarNuevaMarcaModelo">Nueva Marca y Modelo Cablemodem</a>
+									</li>
+									<li>
+										<a href="#" id="MostrarNuevaMarcaModeloExistentes">Marca Existente y Nuevo Modelo</a>
+									</li>
+								</ol>
+								
+								<div id="ContenidoNuevaMarcaModelo" style="display: none;">
+									<form action="#" method="POST" name="NuevoNuevo" id="NuevoNuevo" class="form-horizontal">
+										<label>Marca</label>
+										<input name="Marca" id="Marca" class="text-input" /> 
+										<label>Modelo</label>
+										<input name="Modelo" id="Modelo" class="text-input" />
+										<br /><br />
+										<input type="submit" value="Guardar" class="btn btn-primary" />
+									</form>
+								</div>
+								
+								<div id="ContenidoNuevaMarcaModeloExistentes" style="display: none;">
+									<form action="#" method="POST" name="NuevoExistente" id="NuevoExistente" class="form-horizontal">
+										<label>Marca</label>
+										<select name="MarcaExistente" id="MarcaExistente"></select> 
+										<label>Modelo</label>
+										<input name="ModeloExistente" id="ModeloExistente" class="text-input" />
+										<br /><br />
+										<input type="submit" value="Guardar" class="btn btn-primary" />
+									</form>
+								</div>
+								 
+							</div>
+						</div>
+					</div>
+					<div class="span6">
+						<div class="box box-color box-bordered">
+							<div class="box-title">
+								<h3>
+									<i class="icon-reorder"></i>
+									Cablemodem y Modelos
+								</h3>
+							</div>
+							<div class="box-content" id="ContenidoModems">
+								 
+							</div>
+						</div>
+					</div>
+				</div>
+	{% endblock %}
+		
+	{% block Script %}
+		<script>
+			$(document).ready(function() {
+				
+				$("#MarcaExistente").load("{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/ListarMarCablemodems");
+				$("#ContenidoModems").load("{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/ListarModelosCablemodemInternet");
+				
+				$("#MostrarNuevaMarcaModelo").click(function() {
+					$("#ContenidoNuevaMarcaModelo").each(function() {
+						var Visualizacion = $(this).css("display");
+						if(Visualizacion == "block") {
+							$(this).fadeOut("slow", function() {
+								$(this).css("display", "none");
+							});
+						}
+						else {
+							$(this).fadeIn("slow", function() {
+								$(this).css("display", "block");
+							});
+							$("#ContenidoNuevaMarcaModeloExistentes").fadeOut("slow", function() {
+								$("#ContenidoNuevaMarcaModeloExistentes").css("display", "none");
+							});
+						}
+					});
+				});
+				
+				$("#MostrarNuevaMarcaModeloExistentes").click(function() {
+					$("#ContenidoNuevaMarcaModeloExistentes").each(function() {
+						var Visualizacion = $(this).css("display");
+						if(Visualizacion == "block") {
+							$(this).fadeOut("slow", function() {
+								$(this).css("display", "none");
+							});
+						}
+						else {
+							$(this).fadeIn("slow", function() {
+								$(this).css("display", "block");
+							});
+							$("#ContenidoNuevaMarcaModelo").fadeOut("slow", function() {
+								$("#ContenidoNuevaMarcaModelo").css("display", "none");
+							});
+						}
+					});
+				});
+				
+			});
+		</script>
+		
+		<script type="text/javascript" src="{{NeuralRutasApp.RutaURLBase}}Public/js/jquery.validate.js"></script>
+		<script>
+			$(document).ready(function() {
+				
+				$("#NuevoNuevo").validate({
+					rules: {
+						Marca: {required: true}, 
+						Modelo: {required: true}
+					},
+					messages: {
+						Marca: {required: "Ingrese La Marca del Cablemodem"},
+						Modelo: {required: "Ingrese el Nuevo Modelo del Cablemodem"}
+					},
+				submitHandler: function(form) {
+					var Marca = $("#Marca").val();
+					var Modelo = $("#Modelo").val();
+					$.ajax({
+						type: "POST", 
+						url: "{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/InternetAgregarMarcaModelo/{{Fecha}}", 
+						dataType: "html", 
+						data: { Marca : Marca, Modelo : Modelo}, 
+						beforeSend:function(){
+							$("#ContenidoModems").html('<div style="border: 0px; font-family: verdana; text-align: center;"><img src="{{NeuralRutasApp.RutaPublico}}img/plugins/xeditable/loading.gif" alt="" style="border: 0px; font-family: verdana; width: 25px; height: 25px; text-align: center;" /></div>');
+						},
+						success: function(){
+							$("#MarcaExistente").load("{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/ListarMarCablemodems");
+							$("#ContenidoModems").load("{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/ListarModelosCablemodemInternet");
+						}
+					})
+					}
+				});
+
+				$("#NuevoExistente").validate({
+					rules: {
+						MarcaExistente: {required: true}, 
+						ModeloExistente: {required: true}
+					},
+					messages: {
+						MarcaExistente: {required: "Seleccione La Marca del Cablemodem"},
+						ModeloExistente: {required: "Ingrese el Nuevo Modelo del Cablemodem"}
+					},
+				submitHandler: function(form) {
+					var Marca = $("#MarcaExistente").val();
+					var Modelo = $("#ModeloExistente").val();
+					$.ajax({
+						type: "POST", 
+						url: "{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/InternetAgregarMarcaModelo/{{Fecha}}", 
+						dataType: "html", 
+						data: { Marca : Marca, Modelo : Modelo}, 
+						beforeSend:function(){
+							$("#ContenidoModems").html('<div style="border: 0px; font-family: verdana; text-align: center;"><img src="{{NeuralRutasApp.RutaPublico}}img/plugins/xeditable/loading.gif" alt="" style="border: 0px; font-family: verdana; width: 25px; height: 25px; text-align: center;" /></div>');
+						},
+						success: function(){
+							$("#MarcaExistente").load("{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/ListarMarCablemodems");
+							$("#ContenidoModems").load("{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/ListarModelosCablemodemInternet");
+						}
+					})
+					}
+				});
+								
+			});
+		</script>
+		
+		<script>
+			$(document).ready(function() {
+				$('#NuevoNuevo').submit(function () {
+					$('#NuevoNuevo')[0].reset();
+				});
+			});
+		</script>
+		
+		<script>
+			$(document).ready(function() {
+				$('#NuevoExistente').submit(function () {
+					$('#NuevoExistente')[0].reset();
+				});
+			});
+		</script>
+	{% endblock %}

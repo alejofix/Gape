@@ -1,0 +1,109 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+		<style>
+			label {
+				font-weight: bold;
+				font-family: verdana;
+				font-size: 10px;
+				width: 150px;
+			}
+			.text-input {
+				font-family: verdana;
+				font-size: 10px;
+				text-indent: 10px;
+				font-weight: bold;
+			}
+			.error {
+				font-family: verdana;
+				font-size: 10px;
+				color: red;
+				width: 100%;
+			}
+		</style>
+		<div class="row-fluid">
+					<div class="span6">
+						<div class="box box-bordered">
+							<div class="box-title">
+								<h3>
+									<i class="icon-reorder"></i>
+									Servicio Afectado Llamadas de Servicio
+								</h3>
+							</div>
+							<div class="box-content">
+							
+								<div id="ContenidoNuevaMarcaModeloExistentes" style="display: block;">
+									<form action="#" method="POST" name="LLS" id="LLS" class="form-horizontal"> 
+										<label>Servicio Afectado</label>
+										<input name="Sintoma" id="Sintoma" class="text-input" />
+										<br /><br />
+										<input type="submit" value="Guardar" class="btn btn-primary" />
+									</form>
+								</div>
+								 
+							</div>
+						</div>
+					</div>
+					<div class="span6">
+						<div class="box box-color box-bordered">
+							<div class="box-title">
+								<h3>
+									<i class="icon-reorder"></i>
+									Servicio Afectado
+								</h3>
+							</div>
+							<div class="box-content" id="ContenidoModems">
+								 
+							</div>
+						</div>
+					</div>
+				</div>
+	{% endblock %}
+		
+	{% block Script %}
+		<script>
+			$(document).ready(function() {
+				$("#ContenidoModems").load("{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/LLSListadoServicioAfectado");
+			});
+		</script>
+		
+		
+		<script type="text/javascript" src="{{NeuralRutasApp.RutaURLBase}}Public/js/jquery.validate.js"></script>
+		<script>
+			$(document).ready(function() {
+				
+				$("#LLS").validate({
+					rules: {
+						Sintoma: {required: true}
+					},
+					messages: {
+						Sintoma: {required: "Ingrese el Servicio Afectado Correspondiente"}
+					},
+				submitHandler: function(form) {
+					var Sintoma = $("#Sintoma").val();
+					$.ajax({
+						type: "POST", 
+						url: "{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/LLSagregarServicioAfectado/{{Fecha}}", 
+						dataType: "html", 
+						data: { Sintoma : Sintoma}, 
+						beforeSend:function(){
+							$("#ContenidoModems").html('<div style="border: 0px; font-family: verdana; text-align: center;"><img src="{{NeuralRutasApp.RutaPublico}}img/plugins/xeditable/loading.gif" alt="" style="border: 0px; font-family: verdana; width: 25px; height: 25px; text-align: center;" /></div>');
+						},
+						success: function(response){
+							$("#ContenidoModems").load("{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/LLSListadoServicioAfectado");
+							//$("#ContenidoModems").html(response);
+						}
+					})
+					}
+				});
+								
+			});
+		</script>
+		<script>
+			$(document).ready(function() {
+				$('#LLS').submit(function () {
+					$('#LLS')[0].reset();
+				});
+			});
+		</script>
+	{% endblock %}

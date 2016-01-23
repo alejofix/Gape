@@ -1,0 +1,44 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+		<div class="span8">
+			<div class="box">
+				<div class="box-title">
+					<h3>
+						<i class="icon-list-ul"></i>
+						Gestión de Sintomas
+					</h3>
+				</div>
+				<div class="box-content">
+					<div class="row-fluid">
+						<div class="span4">
+							<h4>Sintomas</h4>
+							<ol>
+								<li><a href="{{NeuralRutasApp.RutaURL}}AdminContenido/SintomaTelevision">Televisión</a></li>
+								<li><a href="{{NeuralRutasApp.RutaURL}}AdminContenido/SintomaInternet">Internet</a></li>
+								<li><a href="{{NeuralRutasApp.RutaURL}}AdminContenido/SintomaTelefonia">Telefonia</a></li>
+                                <li><a href="{{NeuralRutasApp.RutaURL}}AdminContenido/SintomaCorreo">Correo</a></li>
+								<li><a href="{{NeuralRutasApp.RutaURL}}AdminContenido/SintomaMiClaro">Mi Claro</a></li>
+								<li><a href="{{NeuralRutasApp.RutaURL}}AdminContenido/SintomaMasivos">Reportes Masivos</a></li>
+								<li><a href="{{NeuralRutasApp.RutaURL}}AdminContenido/SintomaLLS">Llamadas de Servicio</a></li>
+								<li><a href="{{NeuralRutasApp.RutaURL}}AdminContenido/SintomaIIMS">Pasos IIMS</a></li>
+							</ol>
+						</div>
+						<div class="span4">
+							<h4>Información Dependiente</h4>
+							<ol>
+								<li><a href="{{NeuralRutasApp.RutaURL}}AdminContenido/PaqueteTelevision">Paquete / Modelo - Televisión</a></li>
+								<li><a href="{{NeuralRutasApp.RutaURL}}AdminContenido/InternetMarcaModelo">Marca / Modelo Cablemodem - Internet</a></li>
+								<li><a href="{{NeuralRutasApp.RutaURL}}AdminContenido/InternetFirmware">Firmware Cablemodem - Internet</a></li>
+								<li><a href="{{NeuralRutasApp.RutaURL}}AdminContenido/LLServicioAfectado">Servicio Afectado - Llamadas de Servicio</a></li>
+								<li><a href="{{NeuralRutasApp.RutaURL}}AdminContenido/TelefoniaSoftswitch">Softswitch Telefonia</a></li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endblock %}
+		
+	{% block Script %}
+	{% endblock %}

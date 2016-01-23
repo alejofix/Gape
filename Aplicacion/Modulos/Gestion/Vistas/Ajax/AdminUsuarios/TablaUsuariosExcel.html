@@ -1,0 +1,52 @@
+	{% if Excel|length >= 1%}
+						<div class="box box-color box-bordered">
+							<div class="box-title">
+								<h3>
+									<i class="icon-table"></i>
+									Información a Procesar
+								</h3>
+							</div>
+							<div class="box-content nopadding">
+								<table class="table table-nomargin" style="font-family: verdana; font-size: 10px;">
+									<thead>
+										<tr>
+											<th>Usuario</th>
+											<th>Nombres</th>
+											<th>Apellidos</th>
+											<th>Cedula</th>
+											<th>Cargo</th>
+											<th>Llave Publica</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for Datos in Excel %}
+											<tr>
+												{% for Columna, Valor in Datos %}
+													<td>{{MultiValidacion(Columna, Valor)}}</td>
+												{% endfor %}
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+	{% else %}
+					<div class="span6">
+						<div class="box">
+							<div class="box-title">
+								<h3>
+									<i class="icon-link"></i>
+									No Hay Datos
+								</h3>
+							</div>
+							<div class="box-content">
+								<blockquote>
+									<p>
+										No Se encuentran datos enviados dentro del formulario
+									</p>
+									<small>Usuarios Por Lote Excel</small>
+								</blockquote>
+							</div>
+						</div>
+					</div>
+	{% endif %}

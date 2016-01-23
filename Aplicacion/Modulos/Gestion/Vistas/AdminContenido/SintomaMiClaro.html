@@ -1,0 +1,79 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+		<style>
+			.error {
+				font-family: verdana;
+				font-size: 10px;
+				font-weight: bold;
+				color: red;
+			}
+		</style>
+		<div class="span6">
+			<div class="box box-bordered">
+				<div class="box-title">
+					<h3><i class="icon-th-list"></i> Agregar Sintoma de Mi Claro</h3>
+				</div>
+				<div class="box-content nopadding">
+					<form action="#" method="POST" class="form-horizontal form-bordered" name="Form" id="Form">
+						<div class="control-group">
+							<label for="textfield" class="control-label">Sintoma</label>
+							<div class="controls">
+								<input type="text" name="Sintoma" id="Sintoma" placeholder="Sintoma" class="input-xlarge">
+							</div>
+						</div>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary">Guardar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<div class="span5" id="CargarContenido">
+			
+		</div>
+	{% endblock %}
+		
+	{% block Script %}
+		<script type="text/javascript" src="{{NeuralRutasApp.RutaURLBase}}Public/js/jquery.validate.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#Form").validate({
+					rules: {
+						Sintoma: {required: true}
+					},
+					messages: {
+						Sintoma: {required: "Debe Ingresar el Sintoma Correspondiente a Mi Claro"}
+					},
+				submitHandler: function(form) {
+					$.ajax({
+						type: "POST", 
+						url: "{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/AgregarSintomaMiClaro/{{Fecha}}", 
+						dataType: "html", 
+						data: $("#Form").serialize(), 
+						beforeSend:function(){
+							$("#CargarContenido").html('<div style="border: 0px; font-family: verdana; text-align: center;"><img src="{{NeuralRutasApp.RutaPublico}}img/plugins/xeditable/loading.gif" alt="" style="border: 0px; font-family: verdana; width: 25px; height: 25px; text-align: center;" /></div>');
+						},
+						success: function(response){
+							$("#CargarContenido").load("{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/CargarListadoSintomas", { "Proceso" : "MICLARO" });
+						}
+					})
+					}
+				});
+			});
+		</script>
+		<script>
+			$(document).ready(function () {
+				$('Form').submit(function () {
+					$('Form')[0].reset();
+				})
+			});
+		</script>
+		
+		<script>
+			$(document).ready(function() {
+				$("#CargarContenido").load("{{NeuralRutasApp.RutaURL}}Ajax_AdminContenido/CargarListadoSintomas", { "Proceso" : "MICLARO" });
+			});
+		</script>
+	{% endblock %}

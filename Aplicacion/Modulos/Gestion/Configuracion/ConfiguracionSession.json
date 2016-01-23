@@ -1,0 +1,1 @@
+{ "LifeTime":{"Session":{"Estado":true, "Parametro":"session.gc_maxlifetime", "Valor":7200}, "Cookie":{"Estado":true, "Parametro":"session.cookie_lifetime", "Valor":7200}}}

@@ -1,0 +1,67 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+					<style>
+						.error {
+							font-size: 10px;
+							font-weight: bold;
+							font-family: verdana;
+							color: red;
+						}
+					</style>
+					<div class="span9">
+						<p>
+							Recuerde que al momento de ingresar los datos deben tener la siguiente estructura el excel de datos que se manejaran:
+							<table style="width: 80%; border: 1px black solid; font-family: verdana; font-size: 10px; text-align: center; color: white;">
+								<tr style="background: #0080C0;">
+									<th style="border: 1px black solid;">Usuario</th>
+									<th style="border: 1px black solid;">Nombres</th>
+									<th style="border: 1px black solid;">Apellidos</th>
+									<th style="border: 1px black solid;">Cedula</th>
+									<th style="border: 1px black solid;">Cargo</th>
+									<th style="border: 1px black solid;">Llave Publica de Permisos</th>
+								</tr>
+								<tr style="border: 1px black solid;">
+									<td style="border: 1px black solid;">&nbsp;</td>
+									<td style="border: 1px black solid;"></td>
+									<td style="border: 1px black solid;"></td>
+									<td style="border: 1px black solid;"></td>
+									<td style="border: 1px black solid;"></td>
+									<td style="border: 1px black solid;"></td>
+								</tr>
+							</table>
+						</p>
+						<p>
+							<h5 style="margin-top: 0px;">Llaves Publicas de Permisos</h5>
+							<dl class="dl-horizontal" style="margin-top: 0px;">
+								{% for Datos in Permisos %}
+									<dt style="width: auto; text-align: center;">{{Datos.Nombre}}</dt>
+									<dd style="text-align: center; color: red; width: 5%; font-weight: bold;">{{Datos.Id|Codificacion}}</dd>
+								{% endfor %}
+							</dl>
+						</p>
+						<div class="box box-bordered box-color">
+							<div class="box-title">
+								<h3><i class="icon-th-list"></i> Asignación de Asesores Por Lote Excel</h3>
+							</div>
+							<div class="box-content nopadding">
+								<form action="#" method="POST" class="form-horizontal form-bordered" name="Form" id="Form">
+									<div class="control-group">
+										<label for="textarea" class="control-label">Excel</label>
+										<div class="controls">
+											<textarea name="Excel" id="Excel" rows="5" class="input-block-level"></textarea>
+										</div>
+									</div>
+									<div class="form-actions">
+										<button type="submit" class="btn btn-primary">Ingresar</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+			
+	{% endblock %}
+	
+	{% block Script %}
+		{{Script|raw}}
+	{% endblock %}

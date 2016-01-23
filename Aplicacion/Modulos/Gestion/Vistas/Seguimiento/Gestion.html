@@ -1,0 +1,89 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+				<style>
+					.error {
+						font-family: verdana;
+						font-size: 10px;
+						font-weight: bold;
+						color: red;
+					}
+				</style>
+				<div class="span8">
+					<div class="box box-bordered box-color">
+						<div class="box-title">
+							<h3><i class="icon-th-list"></i> Seguimiento Consecutivo: {{Consulta.0.Registro}}, Usuario: {{Consulta.0.Usuario}}</h3>
+						</div>
+						<div class="box-content nopadding">
+							<form action="#" method="POST" class="form-horizontal form-bordered" id="Form" name="Form">
+								<dl class="dl-horizontal">
+								{% for Columna, Datos in Consulta.0 %}
+									{% if Datos != NULL and Columna != "Id" and Columna != "Registro" %}
+										<dt>{{Columna|CambiarTexto}}:</dt>
+										<dd>{{Datos|raw}}</dd>
+									{% endif %}
+								{% endfor %}
+								</dl>
+								{% if Consulta.0.Seguimiento != "FINALIZADO" %}
+								<div class="control-group">
+									<label for="textarea" class="control-label">Observaciones</label>
+									<div class="controls">
+										<textarea name="Notas" id="Notas" rows="5" class="input-block-level" placeholder="Ingrese Las Notas Correspondientes"></textarea>
+									</div>
+								</div>
+								<div class="control-group">
+										<label class="control-label">Seguimiento<small>Seleccione si desea finalizar o dejar en seguimiento</small></label>
+										<div class="controls">
+											<label class="radio">
+												<input name="Seguimiento" type="radio" value="SEGUIMIENTO" checked> Seguimiento
+											</label>
+											<label class="radio">
+												<input name="Seguimiento" type="radio" value="FINALIZADO"> Finalizar
+											</label>
+										</div>
+									</div>
+								<div class="form-actions">
+									<input type="hidden" name="Registro" value="{{Consulta.0.Registro|Codificacion}}" />
+									<button type="submit" class="btn btn-primary">Guardar</button>
+								</div>
+								{% endif %}
+							</form>
+							
+							<div id="CargarNotas">
+								{% if Notas|length >=1 %}
+									<ul class="messages withlist">
+										{% for Datos in Notas %}
+										<li class="right">
+											<div class="image">
+												<img src="{{NeuralRutasApp.RutaPublico}}img/demo/user-avatar.jpg" alt="">
+											</div>
+											<div class="message">
+												<span class="caret"></span>
+												<span class="name">{{Datos.Nombres}} {{Datos.Apellidos}}</span>
+												<p>{{Datos.Notas}}</p>
+												<span class="time">
+													<b>Fecha:</b> {{Datos.Fecha}} <b>Hora:</b> {{Datos.Hora}}
+												</span>
+											</div>
+										</li>
+										{% endfor %}
+									</ul>
+								{% endif %}
+							</div>
+							<br />
+						</div>
+					</div>
+				</div>
+			
+	{% endblock %}
+		
+	{% block Script %}
+		{{Script|raw}}
+		<script>
+			$(document).ready(function () {
+				$('Form').submit(function () {
+					$('Form')[0].reset();
+				})
+			});
+		</script>
+	{% endblock %}

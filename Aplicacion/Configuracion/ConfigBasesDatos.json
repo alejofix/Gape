@@ -1,0 +1,20 @@
+{
+	"DEFAULT":
+	{
+		"dbname":	"Gape",
+		"user":		"root",
+		"password":	"secret",
+		"host":		"localhost",
+		"driver":	"pdo_mysql",
+		"charset":	"iso-8859-1"
+	},
+	"GESTION":
+	{
+		"dbname":	"Gape",
+		"user":		"root",
+		"password":	"secret",
+		"host":		"localhost",
+		"driver":	"pdo_mysql",
+		"charset":	"utf8"
+	}
+}

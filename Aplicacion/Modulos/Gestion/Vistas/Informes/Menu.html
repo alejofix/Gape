@@ -1,0 +1,40 @@
+	{% extends 'General/Base.html' %}
+	
+	{% block Contenido %}
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="box box-color box-bordered">
+					<div class="box-title">
+						<h3>
+							<i class="icon-th-large"></i>
+							{{Titulo}}
+						</h3>
+					</div>
+					<div class="box-content">
+						<ul class="stats">
+							<li class="blue">
+								<a href="{{NeuralRutasApp.RutaURL}}Informes/Dia">
+									<i class="icon-calendar"></i>
+									<div class="details">
+										<span class="big">Diario</span>
+										<span>Seleccion de Día a Consultar</span>
+									</div>
+								</a>
+							</li>
+							<li class="green">
+								<a href="{{NeuralRutasApp.RutaURL}}Informes/Mes">
+									<i class="icon-calendar"></i>
+									<div class="details">
+										<span class="big">Mensual</span>
+										<span>Seleccion de Mes y Año a Consultar</span>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endblock %}
+		
+	{% block Script %}{% endblock %}
