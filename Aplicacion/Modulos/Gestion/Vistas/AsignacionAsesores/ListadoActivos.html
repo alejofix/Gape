@@ -16,6 +16,7 @@
 								<th>Apellidos</th>
 								<th>Estado</th>
 								<th>Gestión</th>
+								<th>Empresa</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -27,6 +28,7 @@
 										<td>{{Datos.Apellidos}}</td>
 										<td id="Respuesta_{{Datos.Id}}">{{Datos.Asignacion}}</td>
 										<td class="Boton" id="{{Datos.Id}}" data="{{Datos.Asignacion}}"></td>
+										<td>{{ Datos.Empresa|e }}</td>
 									</tr>
 								{% endfor %}
 							{% else %}

@@ -15,6 +15,7 @@
 			$Plantilla->ParametrosEtiquetas('Consulta', $this->Modelo->ListarAsesoresAsignacion($Parametros['Usuario']));
 			$Plantilla->ParametrosEtiquetas('Fecha', AyudasConversorHexAscii::ASCII_HEX(date("Y-m-d")));
 			echo $Plantilla->MostrarPlantilla('AsignacionAsesores/ListadoActivos.html', 'GESTION');
+			//Ayudas::print_r($this->Modelo->ListarAsesoresAsignacion($Parametros['Usuario']));
 		}
 		
 		public function AsiganarAsesoresExcel() {

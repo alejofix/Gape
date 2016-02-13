@@ -98,22 +98,40 @@
 		
 		private function AsignarAsignacion($Usuario = false) {
 			if($Usuario == true) {
-				$Asesores = self::ListarAsesoresValidacion(true);
 				$Conexion = NeuralConexionBaseDatos::ObtenerConexionBase('GESTION');
-				for ($i=0; $i<$Asesores['Cantidad']; $i++) {
-					$Consulta = $Conexion->prepare("SELECT Id FROM tbl_gestion_asesor_asignado WHERE Asesor = ? AND Usuario = ? AND Estado = ?");
-					$Consulta->bindValue(1, $Asesores[$i]['Usuario']);
-					$Consulta->bindValue(2, $Usuario);
-					$Consulta->bindValue(3, 'ACTIVO');
-					$Consulta->execute();
-					if($Consulta->rowCount()>=1) {
-						$Lista[] = array_merge($Asesores[$i], array('Asignacion' => 'ASIGNADO'));
-					}
-					else {
-						$Lista[] = array_merge($Asesores[$i], array('Asignacion' => 'NO ASIGNADO'));
-					}
-				}
-				return $Lista;
+				
+				$consultaEmpresa = $Conexion->prepare('SELECT Empresa FROM tbl_sistema_usuarios WHERE Usuario = ?');
+				$consultaEmpresa->bindValue(1, $Usuario);
+				$consultaEmpresa->execute();
+				$idEmpresa = $consultaEmpresa->fetch(PDO::FETCH_ASSOC);
+				
+				$consulta = $Conexion->prepare('
+					SELECT 
+						tbl_gestion_asesores.Id, tbl_gestion_asesores.Usuario, tbl_gestion_asesores.Nombres, 
+						tbl_gestion_asesores.Apellidos, tbl_gestion_asesores.Cedula, tbl_gestion_asesores.Estado, 
+						tbl_empresas.Nombre AS Empresa, 
+						CASE (SELECT COUNT(Id) FROM tbl_gestion_asesor_asignado WHERE Asesor = tbl_gestion_asesores.Usuario AND Usuario = ? AND Estado = ?) 
+							 WHEN 1 THEN "ASIGNADO" 
+							 WHEN 0 THEN "NO ASIGNADO" 
+					 	END AS Asignacion 
+						
+					FROM 
+						tbl_gestion_asesores 
+					INNER JOIN 
+						tbl_empresas 
+					ON 
+						tbl_gestion_asesores.Empresa = tbl_empresas.Id 
+					WHERE 
+						tbl_gestion_asesores.Estado = ? 
+					AND 
+						tbl_gestion_asesores.Empresa = ?
+				');
+				$consulta->bindValue(1, $Usuario);
+				$consulta->bindValue(2, 'ACTIVO');
+				$consulta->bindValue(3, 'ACTIVO');
+				$consulta->bindValue(4, $idEmpresa['Empresa']);
+				$consulta->execute();
+				return $consulta->fetchAll(PDO::FETCH_ASSOC);
 			}
 		}
 		
