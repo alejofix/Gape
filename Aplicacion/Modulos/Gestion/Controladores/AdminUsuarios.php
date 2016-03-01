@@ -24,6 +24,9 @@
 			$Validacion->Requerido('Nombres', 'Ingrese Los Nombres Correspondiente');
 			$Validacion->Requerido('Apellidos', 'Ingrese Los Apellidos Correspondiente');
 			$Validacion->Requerido('Cargo', 'Ingrese El Cargo Correspondiente');
+			
+			$Validacion->Requerido('Empresa', 'Ingrese la Empresa Correspondiente');
+			
 			$Validacion->Requerido('Permisos', 'Seleccione el Permiso del Usuario');
 			$Validacion->SubmitHandler(NeuralJQueryAjax::EnviarFormularioPOST('Form', 'Form', NeuralRutasApp::RutaURL('Ajax_AdminUsuarios/GestionNuevoUsuario/'.AyudasConversorHexAscii::ASCII_HEX(NeuralEncriptacion::EncriptarDatos(date("Y-m-d"), array(date("Y-m-d"), 'GESTION')))), true, 'GESTION'));
 			$Script[] = $Validacion->MostrarValidacion('Form');
