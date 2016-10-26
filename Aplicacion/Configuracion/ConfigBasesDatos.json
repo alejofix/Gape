@@ -1,7 +1,7 @@
 {
 	"DEFAULT":
 	{
-		"dbname":	"Gape",
+		"dbname":	"GAPESQLFix",
 		"user":		"root",
 		"password":	"secret",
 		"host":		"localhost",
@@ -10,7 +10,7 @@
 	},
 	"GESTION":
 	{
-		"dbname":	"Gape",
+		"dbname":	"GAPESQLFix",
 		"user":		"root",
 		"password":	"secret",
 		"host":		"localhost",
