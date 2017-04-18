@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-03-2017 a las 16:59:33
--- Versión del servidor: 10.1.13-MariaDB
--- Versión de PHP: 5.6.23
+-- Tiempo de generación: 18-04-2017 a las 14:24:37
+-- Versión del servidor: 10.1.21-MariaDB
+-- Versión de PHP: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `gapesqlfix`
+-- Base de datos: `servicegape_2017`
 --
 
 -- --------------------------------------------------------
@@ -732,7 +732,7 @@ CREATE TABLE `tbl_sistema_usuarios` (
 --
 
 INSERT INTO `tbl_sistema_usuarios` (`Id`, `Usuario`, `Password`, `Nombres`, `Apellidos`, `Cedula`, `Cargo`, `Permisos`, `Estado`, `Empresa`) VALUES
-(1, 'fix', 'cb40dd606cfa58af70d3cef46feb91e38b9c78ba', 'jorge ALEJANDRO ', 'MONTENEGRO', '79696444', 'DESARROLLADOR', 1, 'ACTIVO', 1),
+(1, 'fix', 'cb40dd606cfa58af70d3cef46feb91e38b9c78ba', 'ALEJANDRO ', 'MONTENEGRO', '79696444', 'DESARROLLADOR', 1, 'ACTIVO', 1),
 (2, 'CONSULTA', 'f7c3bc1d808e04732adf679965ccc34ca7ae3441', 'USUARIO', 'CONSULTA', '123456789', 'CONSULTA', 4, 'ACTIVO', 1),
 (3, 'EKZ3611A', '4c567e6021f81a11659d28cbe712db813a176fa8', 'MIGUEL ANGEL', 'SUAREZ BELTRAN', '1022983611', 'EXPERTO', 3, 'ACTIVO', 2),
 (4, 'JSCAMELOR', '4c56426fe0ddb82958d3c26732596cecd6925d2c', 'JHONATAN SEBASTIAN', 'CAMELO RIOS', '1013622945', 'EXPERTO', 3, 'ACTIVO', 2),
